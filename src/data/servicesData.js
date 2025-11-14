@@ -38,21 +38,11 @@ export const servicesData = [
         title: 'Web Design',
         icon: <BsCodeSlash />
     },
-    {
-        id: 7,
-        title: 'Photography',
-        icon: <FaCameraRetro />
-    },
     // {
     //     id: 8,
     //     title: 'Pinterest Virtual Assistant',
     //     icon: <FaPinterest />
     // }, 
-    {
-        id: 9,
-        title: 'Video Editing',
-        icon: <FaVideo />
-    },
     // {
     //     id: 10,
     //     title: 'Data Entry', 

@@ -14,6 +14,7 @@ import {
     FaGithub,
     FaYoutube,
     FaBlogger,
+    FaInstagram,
 } from 'react-icons/fa';
 
 function Landing() {
@@ -101,42 +102,16 @@ function Landing() {
                                 />
                             </a>
                         )}
-                        {socialsData.twitter && (
+                        {socialsData.instagram && (
                             <a
-                                href={socialsData.twitter}
+                                href={socialsData.instagram}
                                 target='_blank'
                                 rel='noreferrer'
                             >
-                                <FaTwitter
+                                <FaInstagram
                                     className='landing--social'
                                     style={{ color: theme.secondary }}
-                                    aria-label='Twitter'
-                                />
-                            </a>
-                        )}
-                        {socialsData.youtube && (
-                            <a
-                                href={socialsData.youtube}
-                                target='_blank'
-                                rel='noreferrer'
-                            >
-                                <FaYoutube
-                                    className='landing--social'
-                                    style={{ color: theme.secondary }}
-                                    aria-label='YouTube'
-                                />
-                            </a>
-                        )}
-                        {socialsData.blogger && (
-                            <a
-                                href={socialsData.blogger}
-                                target='_blank'
-                                rel='noreferrer'
-                            >
-                                <FaBlogger
-                                    className='landing--social'
-                                    style={{ color: theme.secondary }}
-                                    aria-label='Blogger'
+                                    aria-label='Instagram'
                                 />
                             </a>
                         )}

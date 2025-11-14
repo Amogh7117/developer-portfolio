@@ -40,10 +40,7 @@ function Contacts() {
     const { theme } = useContext(ThemeContext);
 
     const handleClose = (event, reason) => {
-        if (reason === 'clickaway') {
-            return;
-        }
-
+        if (reason === 'clickaway') return;
         setOpen(false);
     };
 
@@ -129,6 +126,7 @@ function Contacts() {
 
     const classes = useStyles();
 
+    // 🔥 FIXED: matches your sheet columns → name, email, messages
     const handleContactForm = (e) => {
         e.preventDefault();
 
@@ -140,16 +138,22 @@ function Contacts() {
                     message: message,
                 };
 
-                axios.post(contactsData.sheetAPI, responseData).then((res) => {
-                    console.log('success');
-                    setSuccess(true);
-                    setErrMsg('');
+                axios
+                    .post("https://sheetdb.io/api/v1/q6pngpssmbro7", responseData)
+                    .then((res) => {
+                        console.log('success');
+                        setSuccess(true);
+                        setErrMsg('');
 
-                    setName('');
-                    setEmail('');
-                    setMessage('');
-                    setOpen(false);
-                });
+                        setName('');
+                        setEmail('');
+                        setMessage('');
+                        setOpen(false);
+                    })
+                    .catch(() => {
+                        setErrMsg("Submission failed");
+                        setOpen(true);
+                    });
             } else {
                 setErrMsg('Invalid email');
                 setOpen(true);
@@ -161,22 +165,16 @@ function Contacts() {
     };
 
     return (
-        <div
-            className='contacts'
-            id='contacts'
-            style={{ backgroundColor: theme.secondary }}
-        >
+        <div className='contacts' id='contacts' style={{ backgroundColor: theme.secondary }}>
             <div className='contacts--container'>
                 <h1 style={{ color: theme.primary }}>Contacts</h1>
                 <div className='contacts-body'>
                     <div className='contacts-form'>
                         <form onSubmit={handleContactForm}>
                             <div className='input-container'>
-                                <label htmlFor='Name' className={classes.label}>
-                                    Name
-                                </label>
+                                <label htmlFor='Name' className={classes.label}>Name</label>
                                 <input
-                                    placeholder='John Doe'
+                                    placeholder='Amogh M'
                                     value={name}
                                     onChange={(e) => setName(e.target.value)}
                                     type='text'
@@ -184,15 +182,11 @@ function Contacts() {
                                     className={`form-input ${classes.input}`}
                                 />
                             </div>
+
                             <div className='input-container'>
-                                <label
-                                    htmlFor='Email'
-                                    className={classes.label}
-                                >
-                                    Email
-                                </label>
+                                <label htmlFor='Email' className={classes.label}>Email</label>
                                 <input
-                                    placeholder='John@doe.com'
+                                    placeholder='amoghrm7117@gmail.com'
                                     value={email}
                                     onChange={(e) => setEmail(e.target.value)}
                                     type='email'
@@ -200,13 +194,9 @@ function Contacts() {
                                     className={`form-input ${classes.input}`}
                                 />
                             </div>
+
                             <div className='input-container'>
-                                <label
-                                    htmlFor='Message'
-                                    className={classes.label}
-                                >
-                                    Message
-                                </label>
+                                <label htmlFor='Message' className={classes.label}>Message</label>
                                 <textarea
                                     placeholder='Type your message....'
                                     value={message}
@@ -218,29 +208,20 @@ function Contacts() {
                             </div>
 
                             <div className='submit-btn'>
-                                <button
-                                    type='submit'
-                                    className={classes.submitBtn}
-                                >
+                                <button type='submit' className={classes.submitBtn}>
                                     <p>{!success ? 'Send' : 'Sent'}</p>
                                     <div className='submit-icon'>
                                         <AiOutlineSend
                                             className='send-icon'
                                             style={{
-                                                animation: !success
-                                                    ? 'initial'
-                                                    : 'fly 0.8s linear both',
-                                                position: success
-                                                    ? 'absolute'
-                                                    : 'initial',
+                                                animation: !success ? 'initial' : 'fly 0.8s linear both',
+                                                position: success ? 'absolute' : 'initial',
                                             }}
                                         />
                                         <AiOutlineCheckCircle
                                             className='success-icon'
                                             style={{
-                                                display: !success
-                                                    ? 'none'
-                                                    : 'inline-flex',
+                                                display: !success ? 'none' : 'inline-flex',
                                                 opacity: !success ? '0' : '1',
                                             }}
                                         />
@@ -248,27 +229,18 @@ function Contacts() {
                                 </button>
                             </div>
                         </form>
+
                         <Snackbar
-                            anchorOrigin={{
-                                vertical: 'top',
-                                horizontal: 'center',
-                            }}
+                            anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
                             open={open}
                             autoHideDuration={4000}
                             onClose={handleClose}
                         >
                             <SnackbarContent
                                 action={
-                                    <React.Fragment>
-                                        <IconButton
-                                            size='small'
-                                            aria-label='close'
-                                            color='inherit'
-                                            onClick={handleClose}
-                                        >
-                                            <CloseIcon fontSize='small' />
-                                        </IconButton>
-                                    </React.Fragment>
+                                    <IconButton size='small' aria-label='close' color='inherit' onClick={handleClose}>
+                                        <CloseIcon fontSize='small' />
+                                    </IconButton>
                                 }
                                 style={{
                                     backgroundColor: theme.primary,
@@ -281,157 +253,43 @@ function Contacts() {
                     </div>
 
                     <div className='contacts-details'>
-                        <a
-                            href={`mailto:${contactsData.email}`}
-                            className='personal-details'
-                        >
-                            <div className={classes.detailsIcon}>
-                                <FiAtSign />
-                            </div>
-                            <p style={{ color: theme.tertiary }}>
-                                {contactsData.email}
-                            </p>
+                        <a href={`mailto:${contactsData.email}`} className='personal-details'>
+                            <div className={classes.detailsIcon}><FiAtSign /></div>
+                            <p style={{ color: theme.tertiary }}>{contactsData.email}</p>
                         </a>
-                        <a
-                            href={`tel:${contactsData.phone}`}
-                            className='personal-details'
-                        >
-                            <div className={classes.detailsIcon}>
-                                <FiPhone />
-                            </div>
-                            <p style={{ color: theme.tertiary }}>
-                                {contactsData.phone}
-                            </p>
+
+                        <a href={`tel:${contactsData.phone}`} className='personal-details'>
+                            <div className={classes.detailsIcon}><FiPhone /></div>
+                            <p style={{ color: theme.tertiary }}>{contactsData.phone}</p>
                         </a>
+
                         <div className='personal-details'>
-                            <div className={classes.detailsIcon}>
-                                <HiOutlineLocationMarker />
-                            </div>
-                            <p style={{ color: theme.tertiary }}>
-                                {contactsData.address}
-                            </p>
+                            <div className={classes.detailsIcon}><HiOutlineLocationMarker /></div>
+                            <p style={{ color: theme.tertiary }}>{contactsData.address}</p>
                         </div>
 
                         <div className='socialmedia-icons'>
-                            {socialsData.twitter && (
-                                <a
-                                    href={socialsData.twitter}
-                                    target='_blank'
-                                    rel='noreferrer'
-                                    className={classes.socialIcon}
-                                >
-                                    <FaTwitter aria-label='Twitter' />
-                                </a>
-                            )}
                             {socialsData.github && (
-                                <a
-                                    href={socialsData.github}
-                                    target='_blank'
-                                    rel='noreferrer'
-                                    className={classes.socialIcon}
-                                >
-                                    <FaGithub aria-label='GitHub' />
+                                <a href={socialsData.github} target='_blank' rel='noreferrer' className={classes.socialIcon}>
+                                    <FaGithub />
                                 </a>
                             )}
                             {socialsData.linkedIn && (
-                                <a
-                                    href={socialsData.linkedIn}
-                                    target='_blank'
-                                    rel='noreferrer'
-                                    className={classes.socialIcon}
-                                >
-                                    <FaLinkedinIn aria-label='LinkedIn' />
+                                <a href={socialsData.linkedIn} target='_blank' rel='noreferrer' className={classes.socialIcon}>
+                                    <FaLinkedinIn />
                                 </a>
                             )}
                             {socialsData.instagram && (
-                                <a
-                                    href={socialsData.instagram}
-                                    target='_blank'
-                                    rel='noreferrer'
-                                    className={classes.socialIcon}
-                                >
-                                    <FaInstagram aria-label='Instagram' />
-                                </a>
-                            )}
-                            {socialsData.medium && (
-                                <a
-                                    href={socialsData.medium}
-                                    target='_blank'
-                                    rel='noreferrer'
-                                    className={classes.socialIcon}
-                                >
-                                    <FaMediumM aria-label='Medium' />
-                                </a>
-                            )}
-                            {socialsData.blogger && (
-                                <a
-                                    href={socialsData.blogger}
-                                    target='_blank'
-                                    rel='noreferrer'
-                                    className={classes.socialIcon}
-                                >
-                                    <FaBloggerB aria-label='Blogger' />
-                                </a>
-                            )}
-                            {socialsData.youtube && (
-                                <a
-                                    href={socialsData.youtube}
-                                    target='_blank'
-                                    rel='noreferrer'
-                                    className={classes.socialIcon}
-                                >
-                                    <FaYoutube aria-label='YouTube' />
-                                </a>
-                            )}
-                            {socialsData.reddit && (
-                                <a
-                                    href={socialsData.reddit}
-                                    target='_blank'
-                                    rel='noreferrer'
-                                    className={classes.socialIcon}
-                                >
-                                    <FaRedditAlien aria-label='Reddit' />
-                                </a>
-                            )}
-                            {socialsData.stackOverflow && (
-                                <a
-                                    href={socialsData.stackOverflow}
-                                    target='_blank'
-                                    rel='noreferrer'
-                                    className={classes.socialIcon}
-                                >
-                                    <FaStackOverflow aria-label='Stack Overflow' />
-                                </a>
-                            )}
-                            {socialsData.codepen && (
-                                <a
-                                    href={socialsData.codepen}
-                                    target='_blank'
-                                    rel='noreferrer'
-                                    className={classes.socialIcon}
-                                >
-                                    <FaCodepen aria-label='CodePen' />
-                                </a>
-                            )}
-                            {socialsData.gitlab && (
-                                <a
-                                    href={socialsData.gitlab}
-                                    target='_blank'
-                                    rel='noreferrer'
-                                    className={classes.socialIcon}
-                                >
-                                    <FaGitlab aria-label='GitLab' />
+                                <a href={socialsData.instagram} target='_blank' rel='noreferrer' className={classes.socialIcon}>
+                                    <FaInstagram />
                                 </a>
                             )}
                         </div>
                     </div>
                 </div>
             </div>
-            <img
-                src={theme.contactsimg}
-                alt='contacts'
-                className='contacts--img'
-            />
+
+            <img src={theme.contactsimg} alt='contacts' className='contacts--img' />
         </div>
     );
 }

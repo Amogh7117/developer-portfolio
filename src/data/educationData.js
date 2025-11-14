@@ -1,23 +1,23 @@
 export const educationData = [
     {
         id: 1,
-        institution: 'Marble Hills Middle School',
-        course: 'Higher Secondary Education',
-        startYear: '2007',
-        endYear: '2015'
+        institution: 'S.G.Balekundri Institute of Technology',
+        course: 'Bachelor of Engineering (Computer Science and Business Systems)',
+        startYear: '2023',
+        endYear: '2027'
     },
     {
         id: 2,
-        institution: 'Somerset School of Science',
-        course: 'Bachelor of Technology',
-        startYear: '2015',
-        endYear: '2019'
+        institution: 'Jain PU College, Belagavi',
+        course: 'Science Stream (PCMCS)',
+        startYear: '2021',
+        endYear: '2023'
     },
     {
         id: 3,
-        institution: 'Hawking University, Cambridge',
-        course: 'Master of Technology',
-        startYear: '2019',
-        endYear: 'Present'
+        institution: 'Gomatesh English Medium School, Belagavi',
+        course: 'Upto 10th Standard',
+        startYear: '2008',
+        endYear: '2021'
     },
 ]

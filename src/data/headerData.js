@@ -1,9 +1,11 @@
-import resume from '../assets/pdf/resume.pdf'
+// Import your image and resume first
+import mainimg from '../assets/jpg/mainimg.jpg';
+import resume from '../assets/pdf/resume.pdf';
 
 export const headerData = {
-    name: 'Jane Doe',
-    title: "Web Developer",
-    desciption:"There wasn't a bird in the sky, but that was not what caught her attention. It was the clouds. The deep green that isn't the color of clouds, but came with these. She knew what was coming and she hoped she was prepared. ",
-    image: 'https://raw.githubusercontent.com/PhantomScript/asset-container/main/developer-portfolio/landingImg.png',
+    name: 'Amogh Mastamardi',
+    title: 'Software Developer',
+    description: 'When you choose to carry the rose you undeniably get the thorns too. - everything comes with a price.',
+    image: mainimg,   // Use the imported image
     resumePdf: resume
-}
+};
