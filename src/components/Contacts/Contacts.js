@@ -4,25 +4,14 @@ import CloseIcon from '@material-ui/icons/Close';
 import axios from 'axios';
 import isEmail from 'validator/lib/isEmail';
 import { makeStyles } from '@material-ui/core/styles';
-import {
-    FaTwitter,
-    FaLinkedinIn,
-    FaGithub,
-    FaYoutube,
-    FaBloggerB,
-    FaRedditAlien,
-    FaStackOverflow,
-    FaCodepen,
-    FaInstagram,
-    FaGitlab,
-    FaMediumM,
-} from 'react-icons/fa';
+
+// ✅ ONLY THE ICONS YOU ACTUALLY USE
+import { FaGithub, FaLinkedinIn, FaInstagram } from 'react-icons/fa';
 import { AiOutlineSend, AiOutlineCheckCircle } from 'react-icons/ai';
 import { FiPhone, FiAtSign } from 'react-icons/fi';
 import { HiOutlineLocationMarker } from 'react-icons/hi';
 
 import { ThemeContext } from '../../contexts/ThemeContext';
-
 import { socialsData } from '../../data/socialsData';
 import { contactsData } from '../../data/contactsData';
 import './Contacts.css';
@@ -126,7 +115,7 @@ function Contacts() {
 
     const classes = useStyles();
 
-    // 🔥 FIXED: matches your sheet columns → name, email, messages
+    // 🔥 Form handling code
     const handleContactForm = (e) => {
         e.preventDefault();
 
